@@ -8,39 +8,37 @@
 import XCTest
 @testable import BoxLibrary
 
-let countOfColumnsInATable = 4
-let countOfRowsInATable = 4
-let countOfTotalCells = 16
-
 final class TableTests: XCTestCase {
+    var table: Table!
+    
+    override func setUp() {
+        table = Table()
+    }
+    
     func testTable() {
-        let t = Table()
-        XCTAssertEqual(countOfColumnsInATable, t.rows.count)
-        XCTAssertEqual(countOfRowsInATable, t.columns.count)
-        XCTAssertEqual(countOfTotalCells, t.cells.count)
+        XCTAssertEqual(CountOfRows, table.rows.count)
+        XCTAssertEqual(CountOfColumns, table.columns.count)
+        XCTAssertEqual(CountOfCells, table.cells.count)
     }
     
     func testTableCellsOfRowsRelationship() {
-        let t = Table()
-        for row in t.rows {
+        for row in table.rows {
             for cell in row {
-                XCTAssertIdentical(t, cell.table)
+                XCTAssertIdentical(table, cell.table)
             }
         }
     }
     
     func testTableCellsOfColumnsRelationship() {
-        let t = Table()
-        for col in t.columns {
+        for col in table.columns {
             for cell in col {
-                XCTAssertIdentical(t, cell.table)
+                XCTAssertIdentical(table, cell.table)
             }
         }
     }
     
     func testTableCellsInitiallyHaveNoBox() {
-        let t = Table()
-        for row in t.rows {
+        for row in table.rows {
             for cell in row {
                 XCTAssertNil(cell.box)
             }

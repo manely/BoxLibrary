@@ -41,6 +41,9 @@ final class Table {
 
 // MARK: - Control panel
 
-private let CountOfRows = 4
-private let CountOfColumns = 4
+let CountOfRows = 4
+let CountOfColumns = 4
+let CountOfCells = 16
 
+let boxOfTwo = Box(value: 2)
+let boxOfFour = Box(value: 4)
