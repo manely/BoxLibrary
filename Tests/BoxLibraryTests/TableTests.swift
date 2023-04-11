@@ -44,4 +44,27 @@ final class TableTests: XCTestCase {
             }
         }
     }
+    
+    /// Assumes that table initialization process makes two box instances, one with value 2, and other with value 4,
+    /// which are placed into two randomly selected cells.
+    func testTableInitialBoxesInitialization() {
+        table.addInitialBoxes()
+        
+        var countOfBoxOfTwo = 0
+        var countOfBoxOfFour = 0
+        
+        for row in table.rows {
+            for cell in row {
+                if cell.box == boxOfTwo {
+                    countOfBoxOfTwo += 1
+                }
+                if cell.box == boxOfFour {
+                    countOfBoxOfFour += 1
+                }
+            }
+        }
+        
+        XCTAssertEqual(1, countOfBoxOfTwo)
+        XCTAssertEqual(1, countOfBoxOfFour)
+    }
 }

@@ -12,9 +12,25 @@ final class Table {
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
     /// Each element of this array is a row of `Cell` instances.
-    private(set) lazy var rows: [[Cell]] = Array(repeating: row, count: CountOfRows)
+    private(set) lazy var rows: [[Cell]] = initRows()
     
-    private lazy var row: [Cell] = Array(repeating: Cell(table: self), count: CountOfColumns)
+    private lazy var row: [Cell] = initSingleRow()
+    
+    private func initSingleRow() -> [Cell] {
+        var result = [Cell]()
+        for _ in 0..<CountOfColumns {
+            result.append(Cell(table: self))
+        }
+        return result
+    }
+    
+    private func initRows() -> [[Cell]] {
+        var result = [[Cell]]()
+        for _ in 0..<CountOfRows {
+            result.append(initSingleRow())
+        }
+        return result
+    }
     
     /// The total cells in this instance
     var cells: [Cell] {
@@ -36,6 +52,15 @@ final class Table {
             _columns.append(col)
         }
         return _columns
+    }
+    
+    func addInitialBoxes() {
+        for value: UInt in 1...2 {
+            let rowIndex = Int.random(in: 0..<CountOfCells)
+            let colIndex = Int.random(in: 0..<CountOfColumns)
+            self.cells[rowIndex].box = Box(value: 2 * value)
+        }
+        
     }
 }
 
