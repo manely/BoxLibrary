@@ -7,13 +7,18 @@
 
 import Foundation
 
-final class Cell {
+final class Cell: Equatable {
     let table: Table
     var box: Box?
     
     init(table: Table, box: Box? = nil) {
         self.table = table
         self.box = box
+    }
+    
+    /// Returns `true` when `box` property is `nil`.
+    var isEmpty: Bool {
+        box == nil
     }
     
     /// Pushed the contents (the `Box` object) of current instance to `other`.
@@ -37,6 +42,12 @@ final class Cell {
             other.box = mixed
             self.box = nil
         }
+    }
+    
+    // MARK: - Equatable
+    
+    static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
+        return lhs.table === rhs.table && lhs.box == rhs.box
     }
 }
 
