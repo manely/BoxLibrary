@@ -43,15 +43,38 @@ final class Table {
     ///
     ///  Each element of this array is a column of `Cell` instances.
     var columns: [[Cell]] {
-        guard _columns == nil else {
-            return _columns
-        }
-        _columns = []
-        for i in 0..<CountOfCellsInARowOrColumn {
-            let col = rows.compactMap { $0[i] }
-            _columns.append(col)
+        if _columns == nil {
+            _columns = []
+            for i in 0..<CountOfCellsInARowOrColumn {
+                let col = rows.compactMap { $0[i] }
+                _columns.append(col)
+            }
         }
         return _columns
+    }
+    
+    private var _reversedRows: [[Cell]]!
+    
+    var reversedRows: [[Cell]] {
+        if _reversedRows == nil {
+            _reversedRows = []
+            for row in rows {
+                _reversedRows.append(row.reversed())
+            }
+        }
+        return _reversedRows
+    }
+    
+    private var _reversedColumns: [[Cell]]!
+    
+    var reversedColumns: [[Cell]] {
+        if _reversedColumns == nil {
+            _reversedColumns = []
+            for column in columns {
+                _reversedColumns.append(column.reversed())
+            }
+        }
+        return _reversedColumns
     }
     
     func addInitialBoxes() {

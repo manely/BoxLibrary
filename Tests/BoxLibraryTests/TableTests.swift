@@ -67,4 +67,20 @@ final class TableTests: XCTestCase {
         XCTAssertEqual(1, countOfBoxOfTwo)
         XCTAssertEqual(1, countOfBoxOfFour)
     }
+    
+    func testTableReversedRow() {
+        for rowIndex in 0..<CountOfCellsInARowOrColumn {
+            let row = table.rows[rowIndex]
+            let reversedRow = table.reversedRows[rowIndex]
+            XCTAssertEqual(reversedRow, row.reversed())
+        }
+    }
+    
+    func testTableReversedColumns() {
+        for columnIndex in 0..<CountOfCellsInARowOrColumn {
+            let column = table.rows[columnIndex]
+            let reversedColumn = table.reversedRows[columnIndex]
+            XCTAssertEqual(reversedColumn, column.reversed())
+        }
+    }
 }
