@@ -18,7 +18,8 @@ final class ArrayCellExtensionTests: XCTestCase {
     var valuedCell2Other: Cell!
     var valuedCell4: Cell!
     var valuedCell4Other: Cell!
-
+    var cellsArray: [Cell]!
+    
     override func setUp() {
         emptyCell1 = Cell(table: table)
         emptyCell2 = Cell(table: table)
@@ -26,6 +27,12 @@ final class ArrayCellExtensionTests: XCTestCase {
         valuedCell2Other = Cell(table: table, box: boxedOf2)
         valuedCell4 = Cell(table: table, box: boxedOf4)
         valuedCell4Other = Cell(table: table, box: boxedOf4)
+        cellsArray = [emptyCell1, valuedCell2, emptyCell1, valuedCell2Other]
     }
 
+    func testPushToArrayOfCells() {
+        let pushedArray = cellsArray.push()
+        let expectedArray = [emptyCell1, emptyCell1, emptyCell1, valuedCell4]
+        XCTAssertEqual(expectedArray, pushedArray)
+    }
 }
