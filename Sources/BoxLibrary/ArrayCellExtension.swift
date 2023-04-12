@@ -28,6 +28,10 @@ extension Array where Element == Cell {
             let nextCell = filtered[index + 1]
             try? cell.push(to: nextCell)
         }
+        
+        // filtered needs to get filtered again, since after push there may be empty cells in it.
+        filtered = filtered.filter { !$0.isEmpty }
+        
         // FIXME: Dependency on the CountOfColumns? what about CountOfRows?
         var diff = CountOfColumns - filtered.count
         while diff > 0 {
