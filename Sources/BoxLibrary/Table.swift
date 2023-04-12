@@ -18,7 +18,7 @@ final class Table {
     
     private func initSingleRow() -> [Cell] {
         var result = [Cell]()
-        for _ in 0..<CountOfColumns {
+        for _ in 0..<CountOfCellsInARowOrColumn {
             result.append(Cell(table: self))
         }
         return result
@@ -26,7 +26,7 @@ final class Table {
     
     private func initRows() -> [[Cell]] {
         var result = [[Cell]]()
-        for _ in 0..<CountOfRows {
+        for _ in 0..<CountOfCellsInARowOrColumn {
             result.append(initSingleRow())
         }
         return result
@@ -47,7 +47,7 @@ final class Table {
             return _columns
         }
         _columns = []
-        for i in 0..<CountOfColumns {
+        for i in 0..<CountOfCellsInARowOrColumn {
             let col = rows.compactMap { $0[i] }
             _columns.append(col)
         }
@@ -56,7 +56,7 @@ final class Table {
     
     func addInitialBoxes() {
         for value: UInt in 1...2 {
-            let randomIndex = Int.random(in: 0..<CountOfCells)
+            let randomIndex = Int.random(in: 0..<TotalCountOfCells)
             self.cells[randomIndex].box = Box(value: 2 * value)
         }
         
@@ -65,9 +65,8 @@ final class Table {
 
 // MARK: - Control panel
 
-let CountOfRows = 4
-let CountOfColumns = 4
-let CountOfCells = 16
+let CountOfCellsInARowOrColumn = 4
+let TotalCountOfCells = 16
 
 let boxOfTwo = Box(value: 2)
 let boxOfFour = Box(value: 4)

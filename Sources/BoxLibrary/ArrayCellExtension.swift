@@ -32,11 +32,10 @@ extension Array where Element == Cell {
         // filtered needs to get filtered again, since after push there may be empty cells in it.
         filtered = filtered.filter { !$0.isEmpty }
         
-        // FIXME: Dependency on the CountOfColumns? what about CountOfRows?
-        var diff = CountOfColumns - filtered.count
-        while diff > 0 {
+        var cellCountDifference = CountOfCellsInARowOrColumn - filtered.count
+        while cellCountDifference > 0 {
             filtered.insert(Cell(table: self.table), at: 0)
-            diff -= 1
+            cellCountDifference -= 1
         }
         return filtered
     }

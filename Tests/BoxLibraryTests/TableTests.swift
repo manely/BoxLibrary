@@ -16,9 +16,9 @@ final class TableTests: XCTestCase {
     }
     
     func testTable() {
-        XCTAssertEqual(CountOfRows, table.rows.count)
-        XCTAssertEqual(CountOfColumns, table.columns.count)
-        XCTAssertEqual(CountOfCells, table.cells.count)
+        XCTAssertEqual(CountOfCellsInARowOrColumn, table.rows.count)
+        XCTAssertEqual(CountOfCellsInARowOrColumn, table.columns.count)
+        XCTAssertEqual(TotalCountOfCells, table.cells.count)
     }
     
     func testTableCellsOfRowsRelationship() {
