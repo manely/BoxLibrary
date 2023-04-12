@@ -56,9 +56,8 @@ final class Table {
     
     func addInitialBoxes() {
         for value: UInt in 1...2 {
-            let rowIndex = Int.random(in: 0..<CountOfCells)
-            let colIndex = Int.random(in: 0..<CountOfColumns)
-            self.cells[rowIndex].box = Box(value: 2 * value)
+            let randomIndex = Int.random(in: 0..<CountOfCells)
+            self.cells[randomIndex].box = Box(value: 2 * value)
         }
         
     }
