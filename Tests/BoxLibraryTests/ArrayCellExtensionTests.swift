@@ -33,6 +33,16 @@ final class ArrayCellExtensionTests: XCTestCase {
         valuedCell8 = Cell(table: table, box: boxedOf8)
     }
     
+    func testArrayTable() {
+        for row in table.rows {
+            XCTAssertIdentical(row.table, table)
+        }
+        for column in table.columns {
+            XCTAssertIdentical(column.table, table)
+        }
+        XCTAssertIdentical(table.cells.table, table)
+    }
+    
     func testPushToArrayOfEmptyValueEmptyValueCell() {
         cellsArray = [emptyCell1, valuedCell2, emptyCell1, valuedCell2Other]
         let pushedArray = cellsArray.push()
