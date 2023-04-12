@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: add documentation; write about cells equality criteria
 final class Cell: Equatable {
     let table: Table
     var box: Box?

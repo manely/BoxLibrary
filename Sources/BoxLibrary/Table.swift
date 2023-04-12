@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum PushDirection {
+    case leading, trailing, top, bottom
+}
+
 final class Table {
     
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
@@ -56,13 +60,20 @@ final class Table {
     private var _reversedRows: [[Cell]]!
     
     var reversedRows: [[Cell]] {
-        if _reversedRows == nil {
-            _reversedRows = []
-            for row in rows {
-                _reversedRows.append(row.reversed())
+        get {
+            // TODO: this algorithm can be replaced by map; also for reversedColumns
+            if _reversedRows == nil {
+                _reversedRows = []
+                for row in rows {
+                    _reversedRows.append(row.reversed())
+                }
             }
+            return _reversedRows
         }
-        return _reversedRows
+        set {
+            self.rows = newValue
+            _reversedRows = nil
+        }
     }
     
     private var _reversedColumns: [[Cell]]!
@@ -83,6 +94,26 @@ final class Table {
             self.cells[randomIndex].box = Box(value: 2 * value)
         }
         
+    }
+    
+    func push(direction: PushDirection) {
+        switch direction {
+            case .leading:
+                self.rows.push()
+            case .trailing:
+                self.reversedRows = self.reversedRows.push()
+                // May be the following three lines can replace the line above; this removes the need of the Array.push() method returning self
+                // This makes the reversedRows useless, but the problem still remains for columns
+                self.rows.reverse()
+                self.rows.push()
+                self.rows.reverse()
+            case .top:
+                break
+//                self.columns.push()
+            case .bottom:
+                break
+//                self.reversedColumns.push()
+        }
     }
 }
 
