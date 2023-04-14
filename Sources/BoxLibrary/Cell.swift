@@ -8,6 +8,9 @@
 import Foundation
 
 // TODO: add documentation; write about cells equality criteria
+// TODO: remember to make the code more Swifty, by using protocols, property wrappers, property observers, ...
+// using protocols and extensions may help reduce the code in Array<Cell> extension;
+// with a Pushable protocol, and have Cell and [Cell] both conform to it.
 final class Cell: Equatable, CustomDebugStringConvertible {
     let table: Table
     var box: Box?
@@ -36,12 +39,8 @@ final class Cell: Equatable, CustomDebugStringConvertible {
     ///     - `other` The other cell to push the contents to
     /// - returns `true` if a move or a move and mix is happened, otherwise `false`.
     ///
-    /// - throws ``CellPushError.pushToItself`` if `self` is identical to `other`
-    func push(to other: Cell) throws -> Bool {
-        // FIXME: May be better to use assert instead of error
-        guard self !== other else {
-            throw CellPushError.pushToItself
-        }
+    func push(to other: Cell) -> Bool {
+        assert (self !== other)
         guard let box else {
             // self is empty, so return false
             return false
@@ -66,8 +65,4 @@ final class Cell: Equatable, CustomDebugStringConvertible {
     static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
         return lhs.table === rhs.table && lhs.box == rhs.box
     }
-}
-
-enum CellPushError: Error {
-    case pushToItself
 }

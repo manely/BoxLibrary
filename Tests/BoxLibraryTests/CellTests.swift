@@ -27,44 +27,32 @@ final class CellTests: XCTestCase {
     }
     
     func testPushEmptyCellToEmptyCell() {
-        try? emptyCell1.push(to: emptyCell2)
+        let _ = emptyCell1.push(to:  emptyCell2)
         XCTAssertNil(emptyCell1.box)
         XCTAssertNil(emptyCell2.box)
     }
     
     func testPushValuedCellToEmptyCell() {
-        try? valuedCell2.push(to: emptyCell1)
+        let _ = valuedCell2.push(to:  emptyCell1)
         XCTAssertEqual(boxedOf2, emptyCell1.box)
         XCTAssertNil(valuedCell2.box)
     }
     
     func testPushEmptyCellToValuedCell() {
-        try? emptyCell1.push(to: valuedCell2)
+        let _ = emptyCell1.push(to:  valuedCell2)
         XCTAssertNil(emptyCell1.box)
         XCTAssertEqual(boxedOf2, valuedCell2.box)
     }
     
     func testPushValuedCell2ToValuedCell4() {
-        try? valuedCell2.push(to: valuedCell4)
+        let _ = valuedCell2.push(to:  valuedCell4)
         XCTAssertEqual(boxedOf2, valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell4.box)
     }
     
     func testPushValuedCell2ToValuedCell2Other() {
-        try? valuedCell2.push(to: valuedCell2Other)
+        let _ = valuedCell2.push(to:  valuedCell2Other)
         XCTAssertNil(valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell2Other.box)
-    }
-    
-    func testPushCellToItself() {
-//        var failureOptions = XCTExpectedFailure.Options()
-//        failureOptions.issueMatcher = { issue in
-//            issue.type == .assertionFailure
-//        }
-//
-//        XCTExpectFailure("No cell can be pushed to itself", options: XCTExpectedFailure.Options())
-        XCTAssertThrowsError(
-            try valuedCell2.push(to: valuedCell2)
-        )
     }
 }

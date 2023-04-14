@@ -58,35 +58,35 @@ final class ArrayCellExtensionTests: XCTestCase {
     }
     
     func testPushToArrayOfValue4EmptyValue4EmptyCell() {
-        cellsArray = [valuedCell4, emptyCell1, valuedCell4Other, emptyCell2]
+        cellsArray = [Cell(table: table, box: boxedOf4), Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table)]
         cellsArray.push()
         let expectedArray = [emptyCell1, emptyCell1, emptyCell1, valuedCell8]
         XCTAssertEqual(expectedArray, cellsArray)
     }
     
     func testPushToArrayOfValue4Value2Value4EmptyCell() {
-        cellsArray = [valuedCell4, valuedCell2, valuedCell4Other, emptyCell2]
+        cellsArray = [Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4), Cell(table: table)]
         cellsArray.push()
         let expectedArray = [Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4)]
         XCTAssertEqual(expectedArray, cellsArray)
     }
     
     func testPushToArrayOfValue4Value2EmptyEmptyCell() {
-        cellsArray = [valuedCell4, valuedCell2, emptyCell1, emptyCell2]
+        cellsArray = [Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table), Cell(table: table)]
         cellsArray.push()
         let expectedArray = [Cell(table: table), Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2)]
         XCTAssertEqual(expectedArray, cellsArray)
     }
     
     func testPushToArrayOfEmptyEmptyEmptyValue2Cell() {
-        cellsArray = [emptyCell1, emptyCell2, emptyCell2, valuedCell2]
+        cellsArray = [Cell(table: table), Cell(table: table), Cell(table: table), Cell(table: table, box: boxedOf2)]
         cellsArray.push()
         let expectedArray = [emptyCell1, emptyCell2, emptyCell2, valuedCell2]
         XCTAssertEqual(expectedArray, cellsArray)
     }
     
     func testPushToArrayOfEmptyEmptyValue2Value2Cell() {
-        cellsArray = [emptyCell1, emptyCell2, valuedCell2, valuedCell2Other]
+        cellsArray = [Cell(table: table), Cell(table: table), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
         cellsArray.push()
         let expectedArray = [emptyCell1, emptyCell2, emptyCell2, valuedCell4]
         XCTAssertEqual(expectedArray, cellsArray)
@@ -96,36 +96,29 @@ final class ArrayCellExtensionTests: XCTestCase {
     // currently cells are pushed adjacently; rather equal ones must first get mixed
     // This case is passed by chance!
     func testPushToArrayOfValue4Value4Value2Value2Cell() {
-        cellsArray = [valuedCell4, valuedCell4Other, valuedCell2, valuedCell2Other]
+        cellsArray = [Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
         cellsArray.push()
-        XCTAssertEqual(boxedOf8, valuedCell2.box)
-        XCTAssertEqual(boxedOf4, valuedCell2Other.box)
         let expectedArray = [emptyCell1, emptyCell2, valuedCell8, Cell(table: table, box: boxedOf4)]
         XCTAssertEqual(expectedArray, cellsArray)
     }
 
     func testPushToArrayOfValue2Value2Value4Value4Cell() {
-        cellsArray = [valuedCell2, valuedCell2Other, valuedCell4, valuedCell4Other]
+        cellsArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4)]
         cellsArray.push()
         let expectedArray = [emptyCell1, emptyCell2, valuedCell8, Cell(table: table, box: boxedOf4)]
         XCTAssertEqual(expectedArray, cellsArray)
     }
 
     func testPushToArrayOfValue8Value4Value4Value2Cell() {
-        cellsArray = [valuedCell8, valuedCell4, valuedCell4Other, valuedCell2]
+        cellsArray = [Cell(table: table, box: boxedOf8), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2)]
         cellsArray.push()
-        XCTAssertEqual(boxedOf16, valuedCell4Other.box)
         let expectedArray = [emptyCell1, emptyCell2, valuedCell16, valuedCell2]
         XCTAssertEqual(expectedArray, cellsArray)
     }
 
     func testPushToArrayOfValue8Value2Value4Value4Cell() {
-        cellsArray = [valuedCell8, valuedCell2, valuedCell4, valuedCell4Other]
+        cellsArray = [Cell(table: table, box: boxedOf8), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4)]
         cellsArray.push()
-        XCTAssertEqual(nil, valuedCell8.box)
-        XCTAssertEqual(boxedOf8, valuedCell2.box)
-        XCTAssertEqual(boxedOf2, valuedCell4.box)
-        XCTAssertEqual(boxedOf8, valuedCell4Other.box)
         let expectedArray = [emptyCell1, Cell(table: table, box: boxedOf8), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf8)]
         XCTAssertEqual(expectedArray, cellsArray)
     }
@@ -170,7 +163,7 @@ final class ArrayCellExtensionTests: XCTestCase {
     }
     
     func testPushReverseToArrayOfEmptyEmptyEmptyValue2Cell() {
-        cellsArray = [emptyCell1, emptyCell2, emptyCell2, valuedCell2]
+        cellsArray = [Cell(table: table), Cell(table: table), Cell(table: table), Cell(table: table, box: boxedOf2)]
         cellsArray.pushReverse()
         let expectedArray = [Cell(table: table, box: boxedOf2), Cell(table: table), Cell(table: table), Cell(table: table)]
         XCTAssertEqual(expectedArray, cellsArray)

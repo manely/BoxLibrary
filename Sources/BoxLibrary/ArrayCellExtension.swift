@@ -39,8 +39,8 @@ extension Array where Element == Cell {
                     break
                 }
                 let nextCell = self[index + 1]
-                let resultOfPush = try? cell.push(to: nextCell)
-                if let resultOfPush, resultOfPush {
+                let resultOfPush = cell.push(to: nextCell)
+                if resultOfPush {
                     countOfMoveOrMix = resultOfPush ? countOfMoveOrMix + 1 : countOfMoveOrMix
                 }
             }
@@ -63,8 +63,8 @@ extension Array where Element == Cell {
         for cellIndex in 0..<CountOfCellsInARowOrColumn {
             let cell = self[cellIndex]
             let nextCell = other[cellIndex]
-            let resultOfPush = try? cell.push(to: nextCell)
-            if let resultOfPush, resultOfPush {
+            let resultOfPush = cell.push(to: nextCell)
+            if resultOfPush {
                 countOfMoveOrMix[cellIndex] = resultOfPush ? countOfMoveOrMix[cellIndex] + 1 : countOfMoveOrMix[cellIndex]
             }
         }
@@ -100,8 +100,8 @@ extension Array where Element == Cell {
                     break
                 }
                 let nextCell = self[index - 1]
-                let resultOfPush = try? cell.push(to: nextCell)
-                if let resultOfPush, resultOfPush {
+                let resultOfPush = cell.push(to: nextCell)
+                if resultOfPush {
                     countOfMoveOrMix = resultOfPush ? countOfMoveOrMix + 1 : countOfMoveOrMix
                 }
                 index -= 1
