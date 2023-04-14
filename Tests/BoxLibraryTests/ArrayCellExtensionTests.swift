@@ -25,6 +25,7 @@ final class ArrayCellExtensionTests: XCTestCase {
     var valuedCell16: Cell!
     
     var cellsArray: [Cell]!
+    var cellsArrayOther: [Cell]!
     
     override func setUp() {
         emptyCell1 = Cell(table: table)
@@ -215,6 +216,46 @@ final class ArrayCellExtensionTests: XCTestCase {
     }
 
     // MARK: - [Cell].push(to: [Cell]) tests
+    
+    func testPushArrayOf2408To0428() {
+        cellsArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4), Cell(table: table), Cell(table: table, box: boxedOf8)]
+        cellsArrayOther = [Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf8)]
+        cellsArray.push(to: cellsArrayOther)
+        let expectedArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf8), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf16)]
+        XCTAssertEqual(expectedArray, cellsArrayOther)
+    }
+    
+    func testPushArrayOf0000To2222() {
+        cellsArray = [emptyCell1, emptyCell1, emptyCell1, emptyCell1]
+        cellsArrayOther = [valuedCell2, valuedCell2, valuedCell2Other, valuedCell2Other]
+        cellsArray.push(to: cellsArrayOther)
+        let expectedArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        XCTAssertEqual(expectedArray, cellsArrayOther)
+    }
+    
+    func testPushArrayOf2222To0000() {
+        cellsArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        cellsArrayOther = [Cell(table: table), Cell(table: table), Cell(table: table), Cell(table: table)]
+        cellsArray.push(to: cellsArrayOther)
+        let expectedArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        XCTAssertEqual(expectedArray, cellsArrayOther)
+    }
+
+    func testPushArrayOf2222To2222() {
+        cellsArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        cellsArrayOther = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        cellsArray.push(to: cellsArrayOther)
+        let expectedArray = [Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4)]
+        XCTAssertEqual(expectedArray, cellsArrayOther)
+    }
+
+    func testPushArrayOf2222To2428() {
+        cellsArray = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf2)]
+        cellsArrayOther = [Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf8)]
+        cellsArray.push(to: cellsArrayOther)
+        let expectedArray = [Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf8)]
+        XCTAssertEqual(expectedArray, cellsArrayOther)
+    }
     
     // MARK: - [[Cell]] tests
     
