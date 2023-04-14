@@ -14,10 +14,11 @@ extension Array where Element == Cell {
     }
     
     /// Pushes the cells of this instance, starting fom pushing the first element to the second, then the second to the
-    /// third, up until the last element.
+    /// third, and continue until the last element.
     ///
-    /// The process is repeated again if the count of empty non-empty cells at the beginning of each phase is greater than the count of
-    /// non-empty cells at the end of the phase; that is the result of pushing at least two adjacent cells yields a move or a move and mix.
+    /// The process is repeated again if there is at least one move or move and mix in each phase. This can be determined
+    /// by checking the return value of `Cell.push(to:)` method, which is `true` if the pushing process yields a move or
+    /// move and mix.
     ///
     /// The meaning of move is that a non-empty cell pushes its contents to its next empty cell; the non-empty cells becomes empty. A
     /// move and mix is happened when a non-empty cell is pushed to a its adjacent non-empty cell, where their contents are equal. In this case,
@@ -27,23 +28,21 @@ extension Array where Element == Cell {
     ///
     /// - returns   `self`
     func push() -> [Element] {
-        var filtered = self.filter { !$0.isEmpty }
-        var countOfNoneEmptyCells = 0
+        var countOfMoveOrMix = 0
         
         repeat {
-            countOfNoneEmptyCells = filtered.count
+            countOfMoveOrMix = 0
             for (index, cell) in self.enumerated() {
                 guard index + 1 < self.count else {
                     break
                 }
                 let nextCell = self[index + 1]
-                try? cell.push(to: nextCell)
+                let resultOfPush = try? cell.push(to: nextCell)
+                if let resultOfPush, resultOfPush {
+                    countOfMoveOrMix = resultOfPush ? countOfMoveOrMix + 1 : countOfMoveOrMix
+                }
             }
-            
-            // filtered needs to get filtered again, since after push there may be empty cells in it.
-            filtered = filtered.filter { !$0.isEmpty }
-            
-        } while (countOfNoneEmptyCells > filtered.count)
+        } while (countOfMoveOrMix > 0)
         
         return self
     }
