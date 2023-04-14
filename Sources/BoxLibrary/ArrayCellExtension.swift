@@ -29,8 +29,7 @@ extension Array where Element == Cell {
     ///
     /// This method is used in `[[Cell]].pushRowsInPlace()` method, where it needs to push the cells from the first to the last of each row separately.
     ///
-    /// - returns   `self`
-    func push() -> [Element] {
+    func push() {
         var countOfMoveOrMix = 0
         
         repeat {
@@ -46,8 +45,6 @@ extension Array where Element == Cell {
                 }
             }
         } while (countOfMoveOrMix > 0)
-        
-        return self
     }
     
     /// Pushes the cells of this instance, one by one, to the cells of `other`.
@@ -61,7 +58,6 @@ extension Array where Element == Cell {
     ///
     /// - returns   An array of `Int` holding the count of move or mix separately for the cells of `self` and `other` at each index.
     func push(to other: [Element]) -> [Int] {
-        // TODO: - this method needs tests
         var countOfMoveOrMix = Array<Int>(repeating: 0, count: CountOfCellsInARowOrColumn)
         
         for cellIndex in 0..<CountOfCellsInARowOrColumn {
@@ -93,9 +89,7 @@ extension Array where Element == Cell {
     ///
     /// This method is used in the `[[Cell]].pushRowsInPlaceReverse()` method, where it needs to push the cells from the last to the first of each row separately.
     ///
-    /// - returns   `self`
-    func pushReverse() -> [Element] {
-    // TODO: - This method needs tests
+    func pushReverse() {
         var countOfMoveOrMix = 0
         
         repeat {
@@ -113,8 +107,6 @@ extension Array where Element == Cell {
                 index -= 1
             }
         } while (countOfMoveOrMix > 0)
-        
-        return self
     }
 }
 
@@ -135,20 +127,18 @@ extension Array where Element == [Cell] {
     /// Pushes each `Element` which is of type `[Cell]`.
     ///
     /// This is a convenience method to make working with `[[Cell]]` instances easier.
-    mutating func pushRowsInPlace() {
-        // FIXME: - No need for mutating
-        for (index, cells) in self.enumerated() {
-            // FIXME: - No need to set the self[index]
-            self[index] = cells.push()
+    func pushRowsInPlace() {
+        for cells in self {
+            cells.push()
         }
     }
     
     /// Pushes each `Element` which is of type `[Cell]` in reverse order.
     ///
     /// This is a convenience method to make working with `[[Cell]]` instances easier.
-    mutating func pushRowsInPlaceReverse() {
-        for (index, cells) in self.enumerated() {
-            self[index] = cells.pushReverse()
+    func pushRowsInPlaceReverse() {
+        for cells in self {
+            cells.pushReverse()
         }
     }
     
