@@ -199,4 +199,90 @@ final class TableTests: XCTestCase {
         table.push(direction: .trailing)
         XCTAssertEqual(rows, table.rows)
     }
+    
+    private func prepareTableForPushFromTop() {
+        // Add two values to the first row                              2,0,0,2
+        table.rows[0][0].box = boxedOf2
+        table.rows[0][3].box = boxedOf2
+        
+        // Should be pushed to
+        cellsRow0 = [emptyCell1, emptyCell1, emptyCell1, emptyCell1]
+        
+        // Add four values to the second row                            4,4,2,2
+        table.rows[1][0].box = boxedOf4
+        table.rows[1][1].box = boxedOf4
+        table.rows[1][2].box = boxedOf2
+        table.rows[1][3].box = boxedOf2
+        
+        // Should be pushed to
+        cellsRow1 = [valuedCell2, valuedCell4, valuedCell2, emptyCell1]
+        
+        // Add two values to the third row                              0,8,8,0
+        table.rows[2][1].box = boxedOf8
+        table.rows[2][2].box = boxedOf8
+        
+        // Should be pushed to
+        cellsRow2 = [valuedCell4, valuedCell8, valuedCell8, valuedCell4]
+        
+        // Add four values to the fourth row                            2,4,4,8
+        table.rows[3][0].box = boxedOf2
+        table.rows[3][1].box = boxedOf4
+        table.rows[3][2].box = boxedOf4
+        table.rows[3][3].box = boxedOf8
+        
+        // Should be pushed to
+        cellsRow3 = [valuedCell2, valuedCell4, valuedCell4, valuedCell8]
+        
+        // Making expected rows
+        rows = [cellsRow0, cellsRow1, cellsRow2, cellsRow3]
+    }
+
+    func testTablePushTop() {
+        prepareTableForPushFromTop()
+        table.push(direction: .top)
+        XCTAssertEqual(rows, table.rows)
+    }
+    
+    private func prepareTableForPushFromBottom() {
+        // Add two values to the first row                              2,0,0,2
+        table.rows[0][0].box = boxedOf2
+        table.rows[0][3].box = boxedOf2
+        
+        // Should be pushed to
+        cellsRow0 = [valuedCell2, valuedCell16, valuedCell2, valuedCell4]
+        
+        // Add four values to the second row                            4,8,2,2
+        table.rows[1][0].box = boxedOf4
+        table.rows[1][1].box = boxedOf8
+        table.rows[1][2].box = boxedOf2
+        table.rows[1][3].box = boxedOf2
+        
+        // Should be pushed to
+        cellsRow1 = [valuedCell4, valuedCell4, valuedCell8, valuedCell8]
+        
+        // Add two values to the third row                              0,8,4,0
+        table.rows[2][1].box = boxedOf8
+        table.rows[2][2].box = boxedOf4
+        
+        // Should be pushed to
+        cellsRow2 = [valuedCell2, emptyCell2, emptyCell1, emptyCell1]
+        
+        // Add four values to the fourth row                            2,4,4,8
+        table.rows[3][0].box = boxedOf2
+        table.rows[3][1].box = boxedOf4
+        table.rows[3][2].box = boxedOf4
+        table.rows[3][3].box = boxedOf8
+        
+        // Should be pushed to
+        cellsRow3 = [emptyCell1, emptyCell2, emptyCell1, emptyCell2]
+        
+        // Making expected rows
+        rows = [cellsRow0, cellsRow1, cellsRow2, cellsRow3]
+    }
+    
+    func testTablePushBottom() {
+        prepareTableForPushFromBottom()
+        table.push(direction: .bottom)
+        XCTAssertEqual(rows, table.rows)
+    }
 }

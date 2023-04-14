@@ -38,6 +38,8 @@ final class Table {
     
     /// The total cells in this instance
     var cells: [Cell] {
+        // TODO: - can be replaced with
+//        Array(rows.joined())
         rows.flatMap { $0 }
     }
     
@@ -101,19 +103,11 @@ final class Table {
             case .leading:
                 self.rows.pushRowsInPlace()
             case .trailing:
-//                self.reversedRows.push()
-                // May be the following three lines can replace the line above; this removes the need of the Array.push() method returning self
-                // This makes the reversedRows useless, but the problem still remains for columns
-//                self.rows.reverse()
-//                self.rows.pushRowsInPlace()
-//                self.rows.reverse()
                 self.rows.pushRowsInPlaceReverse()
             case .top:
-                break
-//                self.columns.push()
+                self.rows.pushInPlace()
             case .bottom:
-                break
-//                self.reversedColumns.push()
+                self.rows.pushInPlaceReverse()
         }
     }
 }
