@@ -38,9 +38,8 @@ final class Table {
     
     /// The total cells in this instance
     var cells: [Cell] {
-        // TODO: - can be replaced with
-//        Array(rows.joined())
-        rows.flatMap { $0 }
+        Array(rows.joined())
+//        rows.flatMap { $0 }
     }
     
     private var _columns: [[Cell]]!
