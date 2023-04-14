@@ -105,11 +105,9 @@ extension Array where Element == [Cell] {
             self[index] = cells.pushReverse()
         }
     }
-    
+
+    /// A convenience method to reverse each row, which is of type `[Cell]`, in-place.
     mutating func reverseRowsInPlace() {
-//        for var row in self {
-//            row = row.reversed()
-//        }
         for (index, cells) in self.enumerated() {
             self[index] = cells.reversed()
         }

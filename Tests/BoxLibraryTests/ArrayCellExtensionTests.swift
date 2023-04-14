@@ -126,4 +126,13 @@ final class ArrayCellExtensionTests: XCTestCase {
         XCTAssertEqual(expectedArray, pushedArray)
     }
 
+    func testReverseRowsInPlace() {
+        cellsArray = [valuedCell8, valuedCell2, valuedCell4, emptyCell1]
+        let localCellsArray = [emptyCell1, valuedCell2, emptyCell2, valuedCell8].map { $0! }
+        var array = [cellsArray!, localCellsArray]
+        array.reverseRowsInPlace()
+        
+        let expectedArray = [Array(cellsArray.reversed()), localCellsArray.reversed()]
+        XCTAssertEqual(expectedArray, array)
+    }
 }
