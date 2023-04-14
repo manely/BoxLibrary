@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Box: Equatable {
+struct Box: Equatable, CustomStringConvertible {
     var value: UInt
     
     func mix(with other: Box) -> Box? {
@@ -15,6 +15,10 @@ struct Box: Equatable {
             return nil
         }
         return Box(value: self.value + other.value)
+    }
+ 
+    var description: String {
+        String(value)
     }
     
     static func ==(_ lhs: Box, rhs: Box) -> Bool {
