@@ -163,7 +163,7 @@ final class TableTests: XCTestCase {
         table.rows[0][3].box = boxedOf2
         
         // Should be pushed to
-        cellsRow0 = [emptyCell1, emptyCell1, emptyCell1, valuedCell4]
+        cellsRow0 = [valuedCell4, emptyCell1, emptyCell1, emptyCell1]
         
         // Add four values to the second row
         table.rows[1][0].box = boxedOf4
@@ -172,14 +172,14 @@ final class TableTests: XCTestCase {
         table.rows[1][3].box = boxedOf2
         
         // Should be pushed to
-        cellsRow1 = [emptyCell1, emptyCell1, valuedCell8, valuedCell4]
+        cellsRow1 = [valuedCell4, valuedCell8, emptyCell1, emptyCell1]
         
         // Add two values to the third row
         table.rows[2][1].box = boxedOf8
         table.rows[2][2].box = boxedOf8
         
         // Should be pushed to
-        cellsRow2 = [emptyCell1, emptyCell1, emptyCell1, valuedCell16]
+        cellsRow2 = [valuedCell16, emptyCell1, emptyCell1, emptyCell1]
         
         // Add four values to the fourth row
         table.rows[3][0].box = boxedOf2
@@ -188,20 +188,15 @@ final class TableTests: XCTestCase {
         table.rows[3][3].box = boxedOf8
         
         // Should be pushed to
-        cellsRow3 = [emptyCell1, emptyCell1, valuedCell2, valuedCell16]
+        cellsRow3 = [valuedCell2, valuedCell16, emptyCell1, emptyCell1]
         
         // Making expected rows
         rows = [cellsRow0, cellsRow1, cellsRow2, cellsRow3]
     }
 
     func testTablePushTrailing() {
-        prepareTableForPushLeadingRows()
-        // rows is the expected array, but is prepared for a leading push; so reverse its rows in place
-        rows.reverseRowsInPlace()
-        
+        prepareTableForPushTrailingRows()
         table.push(direction: .trailing)
-        
-        
         XCTAssertEqual(rows, table.rows)
     }
 }

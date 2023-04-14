@@ -104,9 +104,10 @@ final class Table {
 //                self.reversedRows.push()
                 // May be the following three lines can replace the line above; this removes the need of the Array.push() method returning self
                 // This makes the reversedRows useless, but the problem still remains for columns
-                self.rows.reverse()
-                self.rows.pushRowsInPlace()
-                self.rows.reverse()
+//                self.rows.reverse()
+//                self.rows.pushRowsInPlace()
+//                self.rows.reverse()
+                self.rows.pushRowsInPlaceReverse()
             case .top:
                 break
 //                self.columns.push()
