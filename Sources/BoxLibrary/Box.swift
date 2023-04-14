@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Box: Equatable, CustomStringConvertible {
+struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
     var value: UInt
     
     func mix(with other: Box) -> Box? {
@@ -18,6 +18,10 @@ struct Box: Equatable, CustomStringConvertible {
     }
  
     var description: String {
+        String(value)
+    }
+    
+    var debugDescription: String {
         String(value)
     }
     

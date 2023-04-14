@@ -8,7 +8,7 @@
 import Foundation
 
 // TODO: add documentation; write about cells equality criteria
-final class Cell: Equatable {
+final class Cell: Equatable, CustomDebugStringConvertible {
     let table: Table
     var box: Box?
     
@@ -20,6 +20,10 @@ final class Cell: Equatable {
     /// Returns `true` when `box` property is `nil`.
     var isEmpty: Bool {
         box == nil
+    }
+    
+    var debugDescription: String {
+        self.box?.debugDescription ?? "empty"
     }
     
     /// Pushed the contents (the `Box` object) of `self` to `other`. If a move or move and mix happens, this method returns `true`.
