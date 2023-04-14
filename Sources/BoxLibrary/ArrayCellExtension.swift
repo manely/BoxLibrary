@@ -13,40 +13,37 @@ extension Array where Element == Cell {
         (self.first?.table)!
     }
     
-    /// Filters the non-empty `Cell`s out and pushes the cells of the filtered array from the first to the last.
+    /// Pushes the cells of this instance, starting fom pushing the first element to the second, then the second to the
+    /// third, up until the last element.
     ///
-    /// If the `count` of pushed array is less than the `CountOfColumns`, this methods inserts new empty
-    /// `Cell`s to the beginning of the pushed array, so its `count` is equal to `CountOfColumns`.
+    /// The process is repeated again if the count of empty cells at the beginning of each phase is less than the count of
+    /// empty cells at the end of the phase; that is the result of pushing at least two adjacent cells yields a move (a non-empty
+    /// cell pushes its contents to its next empty cell) or mix (pushing two adjacent cells with equal contents, which yields
+    /// an empty cell followed by a cell containing the sum of those equal contents).
     ///
-    /// - returns   A new array containing the pushed `Cell`s.
+    /// All the changes are taken in-place.
+    ///
+    /// - returns   `self`
     func push() -> [Element] {
         var filtered = self.filter { !$0.isEmpty }
-        var originalFilteredCount = 0
+        var countOfEmptyCells = 0
         
         repeat {
-            originalFilteredCount = filtered.count
-            for (index, cell) in filtered.enumerated() {
-                guard index + 1 < filtered.count else {
+            countOfEmptyCells = filtered.count
+            for (index, cell) in self.enumerated() {
+                guard index + 1 < self.count else {
                     break
                 }
-                let nextCell = filtered[index + 1]
+                let nextCell = self[index + 1]
                 try? cell.push(to: nextCell)
             }
             
             // filtered needs to get filtered again, since after push there may be empty cells in it.
             filtered = filtered.filter { !$0.isEmpty }
             
-        } while (originalFilteredCount > filtered.count)
+        } while (countOfEmptyCells > filtered.count)
         
-        // filtered needs to get filtered again, since after push th۴۵ere may be empty cells in it.
-        filtered = filtered.filter { !$0.isEmpty }
-
-        var cellCountDifference = CountOfCellsInARowOrColumn - filtered.count
-        while cellCountDifference > 0 {
-            filtered.insert(Cell(table: self.table), at: 0)
-            cellCountDifference -= 1
-        }
-        return filtered
+        return self
     }
 }
 

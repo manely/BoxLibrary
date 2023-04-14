@@ -64,14 +64,14 @@ final class ArrayCellExtensionTests: XCTestCase {
     func testPushToArrayOfValue4Value2Value4EmptyCell() {
         cellsArray = [valuedCell4, valuedCell2, valuedCell4Other, emptyCell2]
         let pushedArray = cellsArray.push()
-        let expectedArray = [emptyCell2, valuedCell4, valuedCell2, valuedCell4Other]
+        let expectedArray = [Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf4)]
         XCTAssertEqual(expectedArray, pushedArray)
     }
     
     func testPushToArrayOfValue4Value2EmptyEmptyCell() {
         cellsArray = [valuedCell4, valuedCell2, emptyCell1, emptyCell2]
         let pushedArray = cellsArray.push()
-        let expectedArray = [emptyCell1, emptyCell2, valuedCell4, valuedCell2]
+        let expectedArray = [Cell(table: table), Cell(table: table), Cell(table: table, box: boxedOf4), Cell(table: table, box: boxedOf2)]
         XCTAssertEqual(expectedArray, pushedArray)
     }
     
@@ -92,7 +92,7 @@ final class ArrayCellExtensionTests: XCTestCase {
     func testPushToArrayOfValue4Value4Value2Value2Cell() {
         cellsArray = [valuedCell4, valuedCell4Other, valuedCell2, valuedCell2Other]
         let pushedArray = cellsArray.push()
-        XCTAssertEqual(boxedOf8, valuedCell4Other.box)
+        XCTAssertEqual(boxedOf8, valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell2Other.box)
         let expectedArray = [emptyCell1, emptyCell2, valuedCell8, valuedCell2Other]
         XCTAssertEqual(expectedArray, pushedArray)
@@ -109,8 +109,11 @@ final class ArrayCellExtensionTests: XCTestCase {
     func testPushToArrayOfValue8Value2Value4Value4Cell() {
         cellsArray = [valuedCell8, valuedCell2, valuedCell4, valuedCell4Other]
         let pushedArray = cellsArray.push()
+        XCTAssertEqual(nil, valuedCell8.box)
+        XCTAssertEqual(boxedOf8, valuedCell2.box)
+        XCTAssertEqual(boxedOf2, valuedCell4.box)
         XCTAssertEqual(boxedOf8, valuedCell4Other.box)
-        let expectedArray = [emptyCell1, valuedCell8, valuedCell2, valuedCell8]
+        let expectedArray = [emptyCell1, Cell(table: table, box: boxedOf8), Cell(table: table, box: boxedOf2), Cell(table: table, box: boxedOf8)]
         XCTAssertEqual(expectedArray, pushedArray)
     }
 
