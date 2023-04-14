@@ -53,7 +53,7 @@ extension Array where Element == [Cell] {
     /// Pushes each `Element` which is of type `[Cell]`.
     ///
     /// This is a convenience method to make working with `[[Cell]]` instances easier.
-    mutating func push() -> Self {
+    mutating func pushRowsInPlace() {
 //        var arrayOfCells = [[Cell]]()
 //        for cells in self {
 //            let temp = cells.push()
@@ -63,6 +63,11 @@ extension Array where Element == [Cell] {
         for (index, cells) in self.enumerated() {
             self[index] = cells.push()
         }
-        return self
+    }
+    
+    func reverseRowsInPlace() {
+        for var row in self {
+            row.reverse()
+        }
     }
 }

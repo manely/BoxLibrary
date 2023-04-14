@@ -99,13 +99,13 @@ final class Table {
     func push(direction: PushDirection) {
         switch direction {
             case .leading:
-                self.rows.push()
+                self.rows.pushRowsInPlace()
             case .trailing:
-                self.reversedRows = self.reversedRows.push()
+//                self.reversedRows.push()
                 // May be the following three lines can replace the line above; this removes the need of the Array.push() method returning self
                 // This makes the reversedRows useless, but the problem still remains for columns
                 self.rows.reverse()
-                self.rows.push()
+                self.rows.pushRowsInPlace()
                 self.rows.reverse()
             case .top:
                 break

@@ -196,12 +196,12 @@ final class TableTests: XCTestCase {
 
     func testTablePushTrailing() {
         prepareTableForPushLeadingRows()
+        // rows is the expected array, but is prepared for a leading push; so reverse its rows in place
+        rows.reverseRowsInPlace()
+        
         table.push(direction: .trailing)
         
-        rows.reverse()
         
         XCTAssertEqual(rows, table.rows)
-
-        
     }
 }
