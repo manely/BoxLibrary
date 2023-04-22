@@ -27,31 +27,36 @@ final class CellTests: XCTestCase {
     }
     
     func testPushEmptyCellToEmptyCell() {
-        let _ = emptyCell1.push(to:  emptyCell2)
+        let pushResult = emptyCell1.push(to:  emptyCell2)
+        XCTAssertFalse(pushResult)
         XCTAssertNil(emptyCell1.box)
         XCTAssertNil(emptyCell2.box)
     }
     
     func testPushValuedCellToEmptyCell() {
-        let _ = valuedCell2.push(to:  emptyCell1)
+        let pushResult = valuedCell2.push(to:  emptyCell1)
+        XCTAssertTrue(pushResult)
         XCTAssertEqual(boxedOf2, emptyCell1.box)
         XCTAssertNil(valuedCell2.box)
     }
     
     func testPushEmptyCellToValuedCell() {
-        let _ = emptyCell1.push(to:  valuedCell2)
+        let pushResult = emptyCell1.push(to:  valuedCell2)
+        XCTAssertFalse(pushResult)
         XCTAssertNil(emptyCell1.box)
         XCTAssertEqual(boxedOf2, valuedCell2.box)
     }
     
     func testPushValuedCell2ToValuedCell4() {
-        let _ = valuedCell2.push(to:  valuedCell4)
+        let pushResult = valuedCell2.push(to:  valuedCell4)
+        XCTAssertFalse(pushResult)
         XCTAssertEqual(boxedOf2, valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell4.box)
     }
     
     func testPushValuedCell2ToValuedCell2Other() {
-        let _ = valuedCell2.push(to:  valuedCell2Other)
+        let pushResult = valuedCell2.push(to:  valuedCell2Other)
+        XCTAssertTrue(pushResult)
         XCTAssertNil(valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell2Other.box)
     }
