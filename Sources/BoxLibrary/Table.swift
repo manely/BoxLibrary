@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum PushDirection {
+@frozen public enum PushDirection {
     case leading, trailing, top, bottom
 }
 
-final class Table {
+public final class Table {
     
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
@@ -37,7 +37,7 @@ final class Table {
     }
     
     /// The total cells in this instance
-    var cells: [Cell] {
+    public var cells: [Cell] {
         Array(rows.joined())
 //        rows.flatMap { $0 }
     }
@@ -47,7 +47,7 @@ final class Table {
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
     ///  Each element of this array is a column of `Cell` instances.
-    var columns: [[Cell]] {
+    public var columns: [[Cell]] {
         if _columns == nil {
             _columns = []
             for i in 0..<CountOfCellsInARowOrColumn {
@@ -60,7 +60,7 @@ final class Table {
     
     private var _reversedRows: [[Cell]]!
     
-    var reversedRows: [[Cell]] {
+    public var reversedRows: [[Cell]] {
         get {
             // TODO: this algorithm can be replaced by map; also for reversedColumns
             if _reversedRows == nil {
@@ -79,7 +79,7 @@ final class Table {
     
     private var _reversedColumns: [[Cell]]!
     
-    var reversedColumns: [[Cell]] {
+    public var reversedColumns: [[Cell]] {
         if _reversedColumns == nil {
             _reversedColumns = []
             for column in columns {
@@ -89,7 +89,7 @@ final class Table {
         return _reversedColumns
     }
     
-    func addInitialBoxes() {
+    public func addInitialBoxes() {
         for value: UInt in 1...2 {
             let randomIndex = Int.random(in: 0..<TotalCountOfCells)
             self.cells[randomIndex].box = Box(value: 2 * value)
@@ -97,7 +97,7 @@ final class Table {
         
     }
     
-    func push(direction: PushDirection) {
+    public func push(direction: PushDirection) {
         switch direction {
             case .leading:
                 self.rows.pushRowsInPlace()

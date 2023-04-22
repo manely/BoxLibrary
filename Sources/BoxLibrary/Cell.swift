@@ -11,7 +11,7 @@ import Foundation
 // TODO: remember to make the code more Swifty, by using protocols, property wrappers, property observers, ...
 // using protocols and extensions may help reduce the code in Array<Cell> extension;
 // with a Pushable protocol, and have Cell and [Cell] both conform to it.
-final class Cell: Equatable, CustomDebugStringConvertible {
+public final class Cell: Equatable, CustomDebugStringConvertible {
     let table: Table
     var box: Box?
     
@@ -21,11 +21,11 @@ final class Cell: Equatable, CustomDebugStringConvertible {
     }
     
     /// Returns `true` when `box` property is `nil`.
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         box == nil
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         self.box?.debugDescription ?? "empty"
     }
     
@@ -35,11 +35,10 @@ final class Cell: Equatable, CustomDebugStringConvertible {
     /// move and mix is happened when a non-empty cell is pushed to a its adjacent non-empty cell, where their contents are equal. In this case,
     /// the first cell becomes empty and the next one holds the sum of those equal contents.
     ///
-    /// - parameters
-    ///     - `other` The other cell to push the contents to
-    /// - returns `true` if a move or a move and mix is happened, otherwise `false`.
+    /// - Parameter other: The other cell to push the contents to
+    /// - Returns: `true` if a move or a move and mix is happened, otherwise `false`.
     ///
-    func push(to other: Cell) -> Bool {
+    public func push(to other: Cell) -> Bool {
         assert (self !== other)
         guard let box else {
             // self is empty, so return false
@@ -62,7 +61,7 @@ final class Cell: Equatable, CustomDebugStringConvertible {
     
     // MARK: - Equatable
     
-    static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
+    public static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
         return lhs.table === rhs.table && lhs.box == rhs.box
     }
 }
