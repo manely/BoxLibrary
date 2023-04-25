@@ -20,6 +20,8 @@ public final class Table {
     
     private lazy var row: [Cell] = initSingleRow()
     
+    // TODO: - Maybe better to add a subscript to this class.
+    
     private func initSingleRow() -> [Cell] {
         var result = [Cell]()
         for _ in 0..<CountOfCellsInARowOrColumn {
