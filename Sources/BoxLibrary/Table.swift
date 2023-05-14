@@ -26,6 +26,10 @@ public final class Table {
     
     // TODO: - Maybe better to add a subscript to this class.
     
+    public init() {
+        
+    }
+    
     /// Called in the `initRows()` method to initialize a single row.
     private func initSingleRow() -> [Cell] {
         var result = [Cell]()
