@@ -107,8 +107,8 @@ final class TableTests: XCTestCase {
     
     func testTableReversedColumns() {
         for columnIndex in 0..<CountOfCellsInARowOrColumn {
-            let column = table.rows[columnIndex]
-            let reversedColumn = table.reversedRows[columnIndex]
+            let column = table.columns[columnIndex]
+            let reversedColumn = table.reversedColumns[columnIndex]
             XCTAssertEqual(reversedColumn, column.reversed())
         }
     }

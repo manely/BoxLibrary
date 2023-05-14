@@ -68,6 +68,7 @@ public final class Table {
     
     private var _reversedRows: [[Cell]]!
     
+    /// Currently only used in the unit tests and not used in the program logic.
     public var reversedRows: [[Cell]] {
         get {
             // TODO: this algorithm can be replaced by map; also for reversedColumns
@@ -87,6 +88,7 @@ public final class Table {
     
     private var _reversedColumns: [[Cell]]!
     
+    /// Currently only used in the unit tests and not used in the program logic.
     public var reversedColumns: [[Cell]] {
         if _reversedColumns == nil {
             _reversedColumns = []
