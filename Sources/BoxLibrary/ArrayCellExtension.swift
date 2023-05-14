@@ -122,6 +122,24 @@ extension Array<Int> {
     }
 }
 
+extension Array where Element == Cell {
+    /// Returns the one and only one non-empty cell in this instance, otherwise `nil`.
+    var oneAndOnlyNoneEmptyCell: Element? {
+        var result: Element?
+        for element in self {
+            if !element.isEmpty {
+                if result == nil {
+                    result = element
+                }
+                else {
+                    result = nil
+                }
+            }
+        }
+        return result
+    }
+}
+
 extension Array where Element == [Cell] {
     
     /// Pushes each `Element` which is of type `[Cell]`.

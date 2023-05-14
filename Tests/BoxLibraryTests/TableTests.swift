@@ -285,4 +285,16 @@ final class TableTests: XCTestCase {
         table.push(direction: .bottom)
         XCTAssertEqual(rows, table.rows)
     }
+    
+    func testTableInsertNewBoxAfterPushLeading() {
+        prepareTableForPushLeadingRows()
+        table.push(direction: .leading)
+        let emptyCells = table.emptyCells
+//        let newBoxCellIndex = table.randomEmptyCellIndex
+        table.insertRandomBox()
+        let addedBoxCell = emptyCells.oneAndOnlyNoneEmptyCell
+        XCTAssertNotNil(addedBoxCell)
+        let addedBox = addedBoxCell?.box
+        XCTAssert(addedBox == Box(value: 2) || addedBox == Box(value: 4))
+    }
 }

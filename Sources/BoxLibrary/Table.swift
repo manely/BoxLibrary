@@ -99,6 +99,7 @@ public final class Table {
         
     }
     
+    /// Pushes the cells in the table according to the game rule, based on the specified direction.
     public func push(direction: PushDirection) {
         switch direction {
             case .leading:
@@ -110,6 +111,25 @@ public final class Table {
             case .bottom:
                 self.rows.pushInPlaceReverse()
         }
+    }
+    
+    /// Adds a `Box` object with the value of 2 or 4 to the empty cells of the table.
+    ///
+    /// Called after doing a push on the table. 
+    public func insertRandomBox() {
+        self.emptyCells[self.randomEmptyCellIndex].box = boxOfTwo
+    }
+    
+    /// Returns the cells where their `isEmpty` property is `true`.
+    ///
+    /// Used in the implementation of `insertRandomBox()` method.
+    var emptyCells: [Cell] {
+        self.cells.filter { $0.isEmpty }
+    }
+    
+    /// Returns a random integer between zero and `emptyCells.count`.
+    var randomEmptyCellIndex: Int {
+        Int.random(in: 0..<self.emptyCells.count)
     }
 }
 
