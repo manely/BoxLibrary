@@ -7,10 +7,12 @@
 
 import Foundation
 
-// TODO: add documentation; write about cells equality criteria
 // TODO: remember to make the code more Swifty, by using protocols, property wrappers, property observers, ...
 // using protocols and extensions may help reduce the code in Array<Cell> extension;
-// with a Pushable protocol, and have Cell and [Cell] both conform to it.
+// with a Pushable protocol, and have Cell and [Cell] both conform to it. (As the push methods have different
+// signatures, it sounds not good to define a Pushable protocol!)
+
+/// Defines a cell in the `Table`.
 public final class Cell: Equatable, CustomDebugStringConvertible {
     let table: Table
     var box: Box?
@@ -61,6 +63,9 @@ public final class Cell: Equatable, CustomDebugStringConvertible {
     
     // MARK: - Equatable
     
+    /// Returns `true` if the values of `table` and `box` properties of the two `Cell` objects are equal.
+    ///
+    /// Two cells are considered equal if they are both in a single `Table` object and have equal `box` properties.
     public static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
         return lhs.table === rhs.table && lhs.box == rhs.box
     }

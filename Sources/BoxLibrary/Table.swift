@@ -11,6 +11,10 @@ import Foundation
     case leading, trailing, top, bottom
 }
 
+/// Defines a table of `Cell` objects.
+///
+/// This is the root class of the game engine; together with `Cell` and `Box`, it implements the
+/// whole logic of the game.
 public final class Table {
     
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
@@ -22,6 +26,7 @@ public final class Table {
     
     // TODO: - Maybe better to add a subscript to this class.
     
+    /// Called in the `initRows()` method to initialize a single row.
     private func initSingleRow() -> [Cell] {
         var result = [Cell]()
         for _ in 0..<CountOfCellsInARowOrColumn {
@@ -30,6 +35,7 @@ public final class Table {
         return result
     }
     
+    /// Called to initialize the `rows` property.
     private func initRows() -> [[Cell]] {
         var result = [[Cell]]()
         for _ in 0..<CountOfCellsInARowOrColumn {
@@ -91,6 +97,9 @@ public final class Table {
         return _reversedColumns
     }
     
+    /// Adds two `Box` objects with value of 2 and 4 to the table.
+    ///
+    /// Called to make the table ready for the game.
     public func addInitialBoxes() {
         for value: UInt in 1...2 {
             let randomIndex = Int.random(in: 0..<TotalCountOfCells)
@@ -115,7 +124,7 @@ public final class Table {
     
     /// Adds a `Box` object with the value of 2 or 4 to the empty cells of the table.
     ///
-    /// Called after doing a push on the table. 
+    /// Called after doing a push on the table.
     public func insertRandomBox() {
         self.emptyCells[self.randomEmptyCellIndex].box = boxOfTwo
     }

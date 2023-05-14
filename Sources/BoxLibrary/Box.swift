@@ -7,9 +7,12 @@
 
 import Foundation
 
+/// Defines a box containing an integer value.
 struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
     var value: UInt
     
+    /// Returns the sum of the `value` properties of this instance and `other`, if the values are equal,
+    /// otherwise returns `nil`.
     func mix(with other: Box) -> Box? {
         guard self.value == other.value else {
             return nil
@@ -25,6 +28,7 @@ struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
         String(value)
     }
     
+    /// Two box objects are equal if they have equal `value` properties.
     static func ==(_ lhs: Box, rhs: Box) -> Bool {
         return lhs.value == rhs.value
     }
