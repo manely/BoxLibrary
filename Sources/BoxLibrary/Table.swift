@@ -22,7 +22,7 @@ public final class Table {
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
     /// Each element of this array is a row of `Cell` instances.
-    private(set) lazy var rows: [[Cell]] = initRows()
+    public private(set) lazy var rows: [[Cell]] = initRows()
     
     private lazy var row: [Cell] = initSingleRow()
     
