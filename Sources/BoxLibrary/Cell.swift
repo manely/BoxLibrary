@@ -31,6 +31,11 @@ public final class Cell: Equatable, CustomDebugStringConvertible {
         self.box?.debugDescription ?? "empty"
     }
     
+    /// Returns the value stored in this instance.
+    public var value: UInt {
+        box?.value ?? 0
+    }
+    
     /// Pushed the contents (the `Box` object) of `self` to `other`. If a move or move and mix happens, this method returns `true`.
     ///
     /// The meaning of move is that a non-empty cell pushes its contents to its next empty cell; the non-empty cells becomes empty. A
