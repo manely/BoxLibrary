@@ -13,13 +13,23 @@ import Foundation
 // signatures, it sounds not good to define a Pushable protocol!)
 
 /// Defines a cell in the `Table`.
-public final class Cell: Equatable, CustomDebugStringConvertible {
+public final class Cell: Equatable, CustomDebugStringConvertible, Identifiable, Hashable {
     let table: Table
     var box: Box?
+    
+    public typealias ID = Cell
     
     init(table: Table, box: Box? = nil) {
         self.table = table
         self.box = box
+    }
+    
+    public var id: ID {
+        return self
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(box)
     }
     
     /// Returns `true` when `box` property is `nil`.

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Defines a box containing an integer value.
-struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible, Hashable {
     var value: UInt
     
     /// Returns the sum of the `value` properties of this instance and `other`, if the values are equal,
@@ -26,6 +26,10 @@ struct Box: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
     
     var debugDescription: String {
         String(value)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
     }
     
     /// Two box objects are equal if they have equal `value` properties.
