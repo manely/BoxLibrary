@@ -16,9 +16,7 @@ import Foundation
 /// This is the root class of the game engine; together with `Cell` and `Box`, it implements the
 /// whole logic of the game.
 public final class Table {
-    
-    // TODO: maybe better to make this public to make accessing rows easier, otherwise we have to use cells only.
-    
+        
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
     /// Each element of this array is a row of `Cell` instances.
