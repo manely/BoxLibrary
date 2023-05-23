@@ -123,6 +123,7 @@ extension Array<Int> {
 }
 
 extension Array: Identifiable where Element == Cell {
+    
     /// Returns the one and only one non-empty cell in this instance, otherwise `nil`.
     var oneAndOnlyNoneEmptyCell: Element? {
         var result: Element?
@@ -133,6 +134,7 @@ extension Array: Identifiable where Element == Cell {
                 }
                 else {
                     result = nil
+                    break
                 }
             }
         }

@@ -43,7 +43,7 @@ final class TableTests: XCTestCase {
         valuedCell8 = Cell(table: table, box: boxedOf8)
         valuedCell16 = Cell(table: table, box: boxedOf16)
     }
-
+    
     func testTable() {
         XCTAssertEqual(CountOfCellsInARowOrColumn, table.rows.count)
         XCTAssertEqual(CountOfCellsInARowOrColumn, table.columns.count)
@@ -137,7 +137,7 @@ final class TableTests: XCTestCase {
         
         // Should be pushed to
         cellsRow2 = [emptyCell1, emptyCell1, emptyCell1, valuedCell16]
-
+        
         // Add four values to the fourth row
         table.rows[3][0].box = boxedOf2
         table.rows[3][1].box = boxedOf4
@@ -193,7 +193,7 @@ final class TableTests: XCTestCase {
         // Making expected rows
         rows = [cellsRow0, cellsRow1, cellsRow2, cellsRow3]
     }
-
+    
     func testTablePushTrailing() {
         prepareTableForPushTrailingRows()
         table.push(direction: .trailing)
@@ -236,7 +236,7 @@ final class TableTests: XCTestCase {
         // Making expected rows
         rows = [cellsRow0, cellsRow1, cellsRow2, cellsRow3]
     }
-
+    
     func testTablePushTop() {
         prepareTableForPushFromTop()
         table.push(direction: .top)
@@ -290,11 +290,59 @@ final class TableTests: XCTestCase {
         prepareTableForPushLeadingRows()
         table.push(direction: .leading)
         let emptyCells = table.emptyCells
-//        let newBoxCellIndex = table.randomEmptyCellIndex
         table.insertRandomBox()
         let addedBoxCell = emptyCells.oneAndOnlyNoneEmptyCell
         XCTAssertNotNil(addedBoxCell)
         let addedBox = addedBoxCell?.box
         XCTAssert(addedBox == Box(value: 2) || addedBox == Box(value: 4))
     }
+    
+    func testOneAndOnlyNoneEmptyCellWhenThreeRandomBoxAdded() {
+        let emptyCells = prepareForTestingOneAndOnlyNoneEmptyCell {
+            table.insertRandomBox()
+            table.insertRandomBox()
+            table.insertRandomBox()
+            return 3
+        }
+        let oneAndOnlyNoneEmptyCell = emptyCells.oneAndOnlyNoneEmptyCell
+        XCTAssertNil(oneAndOnlyNoneEmptyCell)
+    }
+    
+    func testOneAndOnlyNoneEmptyCellWhenTwoRandomBoxAdded() {
+        let emptyCells = prepareForTestingOneAndOnlyNoneEmptyCell {
+            table.insertRandomBox()
+            table.insertRandomBox()
+            return 2
+        }
+        let oneAndOnlyNoneEmptyCell = emptyCells.oneAndOnlyNoneEmptyCell
+        XCTAssertNil(oneAndOnlyNoneEmptyCell)
+    }
+
+    func testOneAndOnlyNoneEmptyCellWhenOneRandomBoxAdded() {
+        let emptyCells = prepareForTestingOneAndOnlyNoneEmptyCell {
+            table.insertRandomBox()
+            return 1
+        }
+        let oneAndOnlyNoneEmptyCell = emptyCells.oneAndOnlyNoneEmptyCell
+        XCTAssertNotNil(oneAndOnlyNoneEmptyCell)
+    }
+    
+    /// Prepares the table for testing `oneAndOnlyNoneEmptyCell` property of `[Cell]`.
+    ///
+    /// First pushes the table in `.leading` direction, then calls `addRandomBox()` closure.
+    /// This closure is free to insert as many random boxes to the empty cells as it likes, and should
+    /// return the count of added boxes.
+    ///
+    /// - Parameter addRandomBox: A closure that inserts random boxes to the empty cells of the table.
+    /// - Returns: An array of empty cells of the table after sending the `push(direction:)` message to the table.
+    private func prepareForTestingOneAndOnlyNoneEmptyCell(addRandomBox: () -> (Int)) -> [Cell] {
+        prepareTableForPushLeadingRows()
+        table.push(direction: .leading)
+        let emptyCells = table.emptyCells
+        let addedCellsCount = addRandomBox()
+        let emptyCellsOfEmptyCells = emptyCells.filter({ $0.isEmpty })
+        XCTAssertEqual(addedCellsCount, emptyCells.count - emptyCellsOfEmptyCells.count)
+        return emptyCells
+    }
+
 }

@@ -60,4 +60,22 @@ final class CellTests: XCTestCase {
         XCTAssertNil(valuedCell2.box)
         XCTAssertEqual(boxedOf4, valuedCell2Other.box)
     }
+    
+    func testObservingCell() {
+        var objectWillChangeHandled = 0
+        let cancellable1 = valuedCell2.objectWillChange.sink { completion in
+            objectWillChangeHandled += 1
+        }
+        
+        let cancellable2 = valuedCell2Other.objectWillChange.sink { completion in
+            objectWillChangeHandled += 1
+        }
+        
+        let pushResult = valuedCell2.push(to:  valuedCell2Other)
+        XCTAssertTrue(pushResult)
+        XCTAssertNil(self.valuedCell2.box)
+        XCTAssertEqual(boxedOf4, valuedCell2Other.box)
+        XCTAssertEqual(2, objectWillChangeHandled)
+        let _ = [cancellable1, cancellable2]    // Just to remove the warning of the two vars being unused
+    }
 }
