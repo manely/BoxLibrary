@@ -13,37 +13,29 @@ import Foundation
 // signatures, it sounds not good to define a Pushable protocol!)
 
 /// Defines a cell in the `Table`.
-public final class Cell: Equatable, CustomDebugStringConvertible, Identifiable, Hashable {
-    let table: Table
-    var box: Box?
+public final class Cell {
+    unowned let table: Table
     
-    public typealias ID = Cell
-    
-    init(table: Table, box: Box? = nil) {
-        self.table = table
-        self.box = box
+    var box: Box? {
+        didSet {
+            guard oldValue != box else { return }
+            self.postChangeNotification(oldValue: oldValue?.value, newValue: box?.value)
+        }
     }
-    
-    public var id: ID {
-        return self
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(box)
-    }
-    
+
     /// Returns `true` when `box` property is `nil`.
     public var isEmpty: Bool {
         box == nil
     }
     
-    public var debugDescription: String {
-        self.box?.debugDescription ?? "empty"
-    }
-    
     /// Returns the value stored in this instance.
     public var value: UInt {
         box?.value ?? 0
+    }
+    
+    init(table: Table, box: Box? = nil) {
+        self.table = table
+        self.box = box
     }
     
     /// Pushed the contents (the `Box` object) of `self` to `other`. If a move or move and mix happens, this method returns `true`.
@@ -75,13 +67,58 @@ public final class Cell: Equatable, CustomDebugStringConvertible, Identifiable, 
         }
         return false
     }
+}
+
+// MARK: - Notification support
+
+public extension Cell {
+    static let tableCellDidChangeValueNotificatioin: Notification.Name = Notification.Name(rawValue: "tableCellDidChangeValue")
+    static let boxOldValue = "cellOldValue"
+    static let boxNewValue = "cellNewValue"
     
-    // MARK: - Equatable
     
+    private func postChangeNotification(oldValue: UInt?, newValue: UInt?) {
+        let notification = Notification(name: Cell.tableCellDidChangeValueNotificatioin,
+                                        object: self,
+                                        userInfo: [Cell.boxOldValue: oldValue as Any, Cell.boxNewValue: newValue as Any])
+        NotificationCenter.default.post(notification)
+    }
+}
+
+// MARK: - Equatable
+
+extension Cell: Equatable {
     /// Returns `true` if the values of `table` and `box` properties of the two `Cell` objects are equal.
     ///
     /// Two cells are considered equal if they are both in a single `Table` object and have equal `box` properties.
     public static func ==(_ lhs: Cell, _ rhs: Cell) -> Bool {
         return lhs.table === rhs.table && lhs.box == rhs.box
+    }
+}
+
+// MARK: - Identifiable
+
+extension Cell: Identifiable {
+    public typealias ID = Cell
+    
+    public var id: ID {
+        return self
+    }
+}
+
+// MARK: - CustomDebugStringConvertible
+
+extension Cell: CustomDebugStringConvertible {
+
+    public var debugDescription: String {
+        self.box?.debugDescription ?? "empty"
+    }
+}
+
+// MARK: - Hashable
+
+extension Cell: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(box)
     }
 }
