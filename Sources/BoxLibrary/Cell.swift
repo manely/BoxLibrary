@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 // TODO: remember to make the code more Swifty, by using protocols, property wrappers, property observers, ...
 // using protocols and extensions may help reduce the code in Array<Cell> extension;
@@ -13,10 +14,10 @@ import Foundation
 // signatures, it sounds not good to define a Pushable protocol!)
 
 /// Defines a cell in the `Table`.
-public final class Cell {
+public final class Cell: ObservableObject {
     unowned let table: Table
     
-    var box: Box? {
+    @Published var box: Box? {
         didSet {
             guard oldValue != box else { return }
             self.postChangeNotification(oldValue: oldValue?.value, newValue: box?.value)

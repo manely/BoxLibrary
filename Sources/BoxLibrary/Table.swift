@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @frozen public enum PushDirection {
     case leading, trailing, top, bottom
@@ -15,7 +16,7 @@ import Foundation
 ///
 /// This is the root class of the game engine; together with `Cell` and `Box`, it implements the
 /// whole logic of the game.
-public final class Table {
+public final class Table: ObservableObject {
         
     /// The array which holds the total cells of this instance as a two-dimensional array of `Cell`.
     ///
